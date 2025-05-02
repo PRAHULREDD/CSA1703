@@ -1,0 +1,32 @@
+def vacuum_cleaner(environment, initial_location):
+    print("192324214-p.rahulreddy")
+    """
+    environment: dict with 'A' and 'B' as keys and 'Dirty' or 'Clean' as values
+    initial_location: 'A' or 'B'
+    """
+    actions = []
+    location = initial_location
+
+    print(f"Initial State: {environment}, Vacuum at {location}")
+
+    while environment['A'] == 'Dirty' or environment['B'] == 'Dirty':
+        if environment[location] == 'Dirty':
+            actions.append(f"Suck at {location}")
+            environment[location] = 'Clean'
+            print(f"Action: Suck at {location} -> {environment}")
+        else:
+            # Move to the other room
+            new_location = 'B' if location == 'A' else 'A'
+            actions.append(f"Move to {new_location}")
+            location = new_location
+            print(f"Action: Move to {location}")
+
+    print("\nFinal State:", environment)
+    print("Action sequence:", actions)
+    return actions
+
+# Example usage
+if __name__ == "__main__":
+    environment = {'A': 'Dirty', 'B': 'Dirty'}
+    initial_location = 'A'
+    vacuum_cleaner(environment, initial_location)
