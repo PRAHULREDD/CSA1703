@@ -1,0 +1,72 @@
+from collections import deque
+print("192324214-p.rahulreddy")
+# Initial state: (Missionaries_left, Cannibals_left, Boat_position)
+# Boat_position = 1 (left), 0 (right)
+start_state = (3, 3, 1)
+goal_state = (0, 0, 0)
+
+def is_valid(state):
+    M_left, C_left, _ = state
+    M_right, C_right = 3 - M_left, 3 - C_left
+
+    # Check bounds
+    if M_left < 0 or C_left < 0 or M_right < 0 or C_right < 0:
+        return False
+
+    # Check safety on both sides
+    if (M_left > 0 and M_left < C_left) or (M_right > 0 and M_right < C_right):
+        return False
+
+    return True
+
+def get_successors(state):
+    successors = []
+    M, C, boat = state
+    moves = [(1, 0), (2, 0), (0, 1), (0, 2), (1, 1)]
+
+    for m, c in moves:
+        if boat == 1:
+            new_state = (M - m, C - c, 0)
+        else:
+            new_state = (M + m, C + c, 1)
+
+        if is_valid(new_state):
+            successors.append(new_state)
+
+    return successors
+
+def bfs():
+    queue = deque()
+    queue.append((start_state, [start_state]))
+    visited = set()
+
+    while queue:
+        current, path = queue.popleft()
+
+        if current == goal_state:
+            return path
+
+        if current in visited:
+            continue
+        visited.add(current)
+
+        for neighbor in get_successors(current):
+            if neighbor not in visited:
+                queue.append((neighbor, path + [neighbor]))
+
+    return None
+
+def print_solution(path):
+    if not path:
+        print("No solution found.")
+        return
+
+    print("Solution found in", len(path) - 1, "moves:")
+    for i, state in enumerate(path):
+        M, C, B = state
+        boat_side = "left" if B == 1 else "right"
+        print(f"Step {i}: Missionaries: {M}, Cannibals: {C}, Boat on {boat_side}")
+
+if __name__ == "__main__":
+    solution = bfs()
+    print_solution(solution)
