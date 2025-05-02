@@ -1,0 +1,61 @@
+from collections import deque
+print("192324214-p.rahulreddy")
+def is_goal(state, goal):
+    return goal in state
+
+def get_next_states(state, capacities):
+    a, b = state
+    cap_a, cap_b = capacities
+    next_states = set()
+
+    # Fill Jug A
+    next_states.add((cap_a, b))
+    # Fill Jug B
+    next_states.add((a, cap_b))
+    # Empty Jug A
+    next_states.add((0, b))
+    # Empty Jug B
+    next_states.add((a, 0))
+    # Pour A -> B
+    pour = min(a, cap_b - b)
+    next_states.add((a - pour, b + pour))
+    # Pour B -> A
+    pour = min(b, cap_a - a)
+    next_states.add((a + pour, b - pour))
+
+    return next_states
+
+def bfs_water_jug(capacities, goal):
+    start = (0, 0)
+    visited = set()
+    queue = deque()
+    queue.append((start, [start]))
+
+    while queue:
+        current_state, path = queue.popleft()
+        if current_state in visited:
+            continue
+
+        visited.add(current_state)
+
+        if is_goal(current_state, goal):
+            return path
+
+        for next_state in get_next_states(current_state, capacities):
+            if next_state not in visited:
+                queue.append((next_state, path + [next_state]))
+
+    return None
+
+# Example usage
+jug_capacities = (4, 3)  # Jug A (4L), Jug B (3L)
+goal_amount = 2
+
+solution_path = bfs_water_jug(jug_capacities, goal_amount)
+
+if solution_path:
+    print("Solution found in", len(solution_path) - 1, "steps:")
+    for step in solution_path:
+        print("Jug A:", step[0], "L | Jug B:", step[1], "L")
+else:
+    print("No solution found.")
