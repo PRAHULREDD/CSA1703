@@ -1,0 +1,10 @@
+% Facts: person(Name, DOB).
+
+person('Ram', date(1999, 5, 20)).
+person('Sita', date(2001, 12, 15)).
+person('Krishna', date(1995, 8, 10)).
+person('Lakshmi', date(2000, 3, 5)).
+
+% Rule to print DOB given a name
+get_dob(Name, DOB) :-
+    person(Name, DOB).
