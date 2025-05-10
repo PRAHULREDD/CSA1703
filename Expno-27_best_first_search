@@ -1,0 +1,46 @@
+% Facts: Define the heuristic values for each node (for simplicity, assume lower is better)
+% Format: heuristic(Node, Value)
+heuristic(a, 6).
+heuristic(b, 2).
+heuristic(c, 3).
+heuristic(d, 5).
+heuristic(e, 1).
+heuristic(f, 4).
+
+% Facts: Define the neighbors of each node (edges in the graph)
+% Format: neighbor(Node, NeighborNode)
+neighbor(a, b).
+neighbor(a, c).
+neighbor(b, d).
+neighbor(c, e).
+neighbor(d, f).
+neighbor(e, f).
+
+% Best First Search (BFS) Algorithm
+best_first_search(Start, Goal, Path) :-
+    best_first_search([Start], Goal, Path).
+
+% Base case: If the current node is the goal, we return the path
+best_first_search([Goal | Path], Goal, [Goal | Path]).
+
+% Recursive case: Select the next node based on the lowest heuristic value
+best_first_search(OpenList, Goal, Path) :-
+    select(Node, OpenList, RestOpenList),
+    find_neighbors(Node, Goal, Neighbors),
+    sort_by_heuristic(Neighbors, SortedNeighbors),
+    append(SortedNeighbors, RestOpenList, NewOpenList),
+    best_first_search(NewOpenList, Goal, Path).
+
+% Find all neighbors of a given node
+find_neighbors(Node, Goal, Neighbors) :-
+    findall(Neighbor, neighbor(Node, Neighbor), Neighbors).
+
+% Sort neighbors by heuristic value
+sort_by_heuristic(Neighbors, SortedNeighbors) :-
+    maplist(heuristic_value, Neighbors, HeuristicList),
+    keysort(HeuristicList, SortedHeuristicList),
+    pairs_keys(SortedHeuristicList, SortedNeighbors).
+
+% Map neighbors to their heuristic values
+heuristic_value(Node, (Value, Node)) :-
+    heuristic(Node, Value).
