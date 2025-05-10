@@ -1,0 +1,21 @@
+% Base case: Move one disk
+hanoi(1, Source, Destination, _, Moves) :-
+    Moves = [move(Source, Destination)].
+
+% Recursive case: Move N disks
+hanoi(N, Source, Destination, Auxiliary, Moves) :-
+    N > 1,
+    N1 is N - 1,
+
+    % Step 1: Move N-1 disks from Source to Auxiliary
+    hanoi(N1, Source, Auxiliary, Destination, Moves1),
+
+    % Step 2: Move the bottom disk from Source to Destination
+    Moves2 = [move(Source, Destination)],
+
+    % Step 3: Move N-1 disks from Auxiliary to Destination
+    hanoi(N1, Auxiliary, Destination, Source, Moves3),
+
+    % Combine all moves
+    append(Moves1, Moves2, TempMoves),
+    append(TempMoves, Moves3, Moves).
