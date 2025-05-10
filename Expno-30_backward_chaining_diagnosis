@@ -1,0 +1,36 @@
+% Facts: Symptoms associated with a person
+has_symptom(john, fever).
+has_symptom(john, cough).
+has_symptom(john, sore_throat).
+
+has_symptom(mary, runny_nose).
+has_symptom(mary, sneezing).
+
+% Rules for diagnosing diseases
+% Disease Flu: If the person has fever and cough, and not a runny nose
+disease(flu) :-
+    has_symptom(Person, fever),
+    has_symptom(Person, cough),
+    \+ has_symptom(Person, runny_nose).
+
+% Disease Cold: If the person has a sore throat and cough, and not a fever
+disease(cold) :-
+    has_symptom(Person, sore_throat),
+    has_symptom(Person, cough),
+    \+ has_symptom(Person, fever).
+
+% Disease Allergy: If the person has a runny nose and sneezing
+disease(allergy) :-
+    has_symptom(Person, runny_nose),
+    has_symptom(Person, sneezing).
+
+% Disease None: If the person does not have any symptoms
+disease(none) :-
+    \+ has_symptom(_, _).
+
+% Backward Chaining: Check if a disease is possible for a given person
+check_disease(Person, Disease) :-
+    disease(Disease),
+    write(Person),
+    write(' might have '),
+    write(Disease), nl.
