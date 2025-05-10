@@ -1,0 +1,51 @@
+% Facts: Define diseases and their associated symptoms
+disease(cold).
+disease(flu).
+disease(cough).
+disease(allergy).
+
+symptom(cold, runny_nose).
+symptom(cold, sore_throat).
+symptom(cold, cough).
+
+symptom(flu, fever).
+symptom(flu, body_aches).
+symptom(flu, sore_throat).
+symptom(flu, cough).
+
+symptom(cough, dry_cough).
+symptom(cough, sore_throat).
+
+symptom(allergy, itchy_eyes).
+symptom(allergy, runny_nose).
+symptom(allergy, sneezing).
+
+% Rule: Diagnose disease based on symptoms
+diagnose(Disease) :-
+    disease(Disease),
+    write('Possible disease: '),
+    write(Disease), nl.
+
+% Rule: Check if the symptoms match the disease
+check_symptoms(Disease, Symptoms) :-
+    disease(Disease),
+    match_symptoms(Disease, Symptoms).
+
+% Helper Rule: Match symptoms for a given disease
+match_symptoms(Disease, Symptoms) :-
+    findall(Symptom, symptom(Disease, Symptom), DiseaseSymptoms),
+    subset(Symptoms, DiseaseSymptoms),
+    write('Diagnosis based on symptoms: '), 
+    write(Disease), nl.
+
+% Rule to diagnose by symptoms
+diagnose_by_symptoms(Symptoms) :-
+    diagnose_possible_disease(Symptoms).
+
+diagnose_possible_disease(Symptoms) :-
+    disease(Disease),
+    match_symptoms(Disease, Symptoms).
+
+% Example: Find all diseases related to a given set of symptoms
+possible_diagnosis(Symptoms) :-
+    diagnose_by_symptoms(Symptoms).
