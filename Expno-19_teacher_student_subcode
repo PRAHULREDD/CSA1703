@@ -1,0 +1,35 @@
+% subject(SubjectName, SubjectCode).
+subject(maths,     cs101).
+subject(physics,   cs102).
+subject(chemistry, cs103).
+subject(english,   cs104).
+
+% teacher(TeacherName, SubjectName).
+teacher(alice, maths).
+teacher(bob, physics).
+teacher(carol, chemistry).
+teacher(david, english).
+
+% student(StudentName, SubjectName).
+student(john, maths).
+student(john, english).
+student(emma, physics).
+student(emma, chemistry).
+student(raj, maths).
+student(raj, physics).
+student(raj, chemistry).
+
+% Rule: Who teaches which subject code
+teaches_code(Teacher, Code) :-
+    teacher(Teacher, Subject),
+    subject(Subject, Code).
+
+% Rule: Which subject code is a student enrolled in
+student_code(Student, Code) :-
+    student(Student, Subject),
+    subject(Subject, Code).
+
+% Rule: Who teaches a student in a subject
+teaches_student(Teacher, Student, Subject) :-
+    teacher(Teacher, Subject),
+    student(Student, Subject).
