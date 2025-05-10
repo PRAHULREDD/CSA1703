@@ -1,0 +1,49 @@
+% Gender facts
+male(john).
+male(paul).
+male(david).
+male(ryan).
+male(adam).
+
+female(lisa).
+female(mary).
+female(susan).
+female(anna).
+
+% Parent-child relationships
+father(john, paul).
+father(john, mary).
+father(paul, ryan).
+father(paul, anna).
+father(david, susan).
+mother(lisa, paul).
+mother(lisa, mary).
+mother(mary, ryan).
+mother(mary, anna).
+mother(susan, adam).
+
+% Rules
+parent(X, Y) :- father(X, Y).
+parent(X, Y) :- mother(X, Y).
+
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+brother(X, Y) :-
+    sibling(X, Y),
+    male(X).
+
+sister(X, Y) :-
+    sibling(X, Y),
+    female(X).
+
+grandparent(X, Y) :-
+    parent(X, Z),
+    parent(Z, Y).
+
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :-
+    parent(X, Z),
+    ancestor(Z, Y).
