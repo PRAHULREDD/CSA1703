@@ -1,0 +1,26 @@
+% Facts
+% Monkey position, box position, banana position.
+monkey_position(m1).
+box_position(b1).
+banana_position(b2).
+
+% The monkey can move
+move_left(m1) :- \+ box_position(b1), \+ banana_position(b2), !.
+move_right(m1) :- \+ box_position(b1), \+ banana_position(b2), !.
+
+% The monkey can push the box
+push_box :- monkey_position(m1), box_position(b1), \+ banana_position(b2), !.
+
+% The monkey can climb the box
+climb_box :- box_position(b1), monkey_position(m1), !.
+
+% The monkey can take the bananas after climbing the box
+take_banana :- box_position(b1), banana_position(b2), monkey_position(m1), !.
+
+% Rules to solve the problem
+solve :- 
+    move_right(m1),
+    push_box,
+    climb_box,
+    take_banana,
+    write('Monkey has successfully taken the banana!'), nl.
