@@ -1,0 +1,36 @@
+% Facts
+likes(john, pizza).
+likes(mary, sushi).
+likes(john, pasta).
+likes(mary, pizza).
+
+% Rule to match a person who likes a specific food
+likes_food(Person, Food) :-
+    likes(Person, Food),
+    write(Person),
+    write(' likes '),
+    write(Food), nl.
+
+% Rule to match all people who like a specific food
+match_pattern(Food) :-
+    likes(Person, Food),
+    write(Person),
+    write(' likes '),
+    write(Food), nl.
+
+% Example of list pattern matching
+match_list_pattern([Head|Tail], [Head|_Tail]) :-
+    write('Pattern matched with Head: '),
+    write(Head), nl.
+
+% Example of matching terms with variables
+match_terms(Term1, Term2) :-
+    Term1 = Term2,
+    write('Terms matched: '),
+    write(Term1), nl.
+
+% Using a structure for pattern matching
+person(name(Name), age(Age)) :-
+    write('Person: '),
+    write(Name), write(', Age: '),
+    write(Age), nl.
