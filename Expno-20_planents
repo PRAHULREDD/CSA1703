@@ -1,0 +1,29 @@
+% planet(Name, OrderFromSun, DiameterInKm, Type).
+planet(mercury, 1, 4879, rocky).
+planet(venus,   2, 12104, rocky).
+planet(earth,   3, 12742, rocky).
+planet(mars,    4, 6779, rocky).
+planet(jupiter, 5, 139820, gas_giant).
+planet(saturn,  6, 116460, gas_giant).
+planet(uranus,  7, 50724, gas_giant).
+planet(neptune, 8, 49244, gas_giant).
+
+% Rule: rocky_planet(Name)
+rocky_planet(Name) :-
+    planet(Name, _, _, rocky).
+
+% Rule: gas_giant(Name)
+gas_giant(Name) :-
+    planet(Name, _, _, gas_giant).
+
+% Rule: larger_than(Name1, Name2)
+larger_than(Name1, Name2) :-
+    planet(Name1, _, D1, _),
+    planet(Name2, _, D2, _),
+    D1 > D2.
+
+% Rule: next_planet(Current, Next)
+next_planet(Current, Next) :-
+    planet(Current, Order1, _, _),
+    Order2 is Order1 + 1,
+    planet(Next, Order2, _, _).
