@@ -1,0 +1,37 @@
+% Facts
+has_symptom(john, fever).
+has_symptom(john, cough).
+has_symptom(john, sore_throat).
+
+has_symptom(mary, runny_nose).
+has_symptom(mary, sneezing).
+
+% Rules for Disease Diagnosis
+
+% If someone has fever and cough, they might have the flu.
+disease(flu) :-
+    has_symptom(Person, fever),
+    has_symptom(Person, cough),
+    \+ has_symptom(Person, runny_nose).
+
+% If someone has a sore throat and cough, they might have a cold.
+disease(cold) :-
+    has_symptom(Person, sore_throat),
+    has_symptom(Person, cough),
+    \+ has_symptom(Person, fever).
+
+% If someone has a runny nose and sneezing, they might have allergies.
+disease(allergy) :-
+    has_symptom(Person, runny_nose),
+    has_symptom(Person, sneezing).
+
+% In case of no symptoms, no disease.
+disease(none) :-
+    \+ has_symptom(_, _).
+
+% Forward Chaining: Infer the disease based on symptoms
+infer_disease(Person) :-
+    disease(Disease),
+    write(Person),
+    write(' might have '),
+    write(Disease), nl.
