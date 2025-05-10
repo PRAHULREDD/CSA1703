@@ -1,0 +1,24 @@
+% bird(Name).
+bird(sparrow).
+bird(pigeon).
+bird(ostrich).
+bird(penguin).
+bird(eagle).
+bird(bat).         % Not a bird, just to test extra case
+
+% cannot_fly(Name).
+cannot_fly(ostrich).
+cannot_fly(penguin).
+
+% Rule: can_fly(Name) if it is a bird and not in cannot_fly
+can_fly(Bird) :-
+    bird(Bird),
+    \+ cannot_fly(Bird).
+
+% Rule: is_a_bird(Name)
+is_a_bird(Bird) :-
+    bird(Bird).
+
+% Optional: not_a_bird(Name)
+not_a_bird(Name) :-
+    \+ bird(Name).
