@@ -1,0 +1,44 @@
+% disease(Person, Disease).
+disease(john, diabetes).
+disease(mary, hypertension).
+disease(raj, obesity).
+disease(susan, anemia).
+
+% recommended(Disease, Food).
+recommended(diabetes, leafy_greens).
+recommended(diabetes, whole_grains).
+recommended(diabetes, nuts).
+
+recommended(hypertension, fruits).
+recommended(hypertension, low_sodium_foods).
+recommended(hypertension, oats).
+
+recommended(obesity, vegetables).
+recommended(obesity, lean_protein).
+recommended(obesity, green_tea).
+
+recommended(anemia, spinach).
+recommended(anemia, red_meat).
+recommended(anemia, lentils).
+
+% avoid(Disease, Food).
+avoid(diabetes, sugar).
+avoid(diabetes, white_bread).
+
+avoid(hypertension, salt).
+avoid(hypertension, pickles).
+
+avoid(obesity, fried_food).
+avoid(obesity, soft_drinks).
+
+avoid(anemia, tea).
+avoid(anemia, coffee).
+
+% Rules to suggest diet
+suggest_diet(Person, Food) :-
+    disease(Person, Disease),
+    recommended(Disease, Food).
+
+suggest_avoid(Person, Food) :-
+    disease(Person, Disease),
+    avoid(Disease, Food).
