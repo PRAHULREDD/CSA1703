@@ -1,0 +1,26 @@
+<!-- Title Tag is used in the website's head, but here we just mention it -->
+<h1>Understanding Basic HTML Tags</h1>
+
+<!-- Anchor Tag -->
+<p>Visit <a href="https://www.wikipedia.org" target="_blank" title="Wikipedia">Wikipedia</a> for more information.</p>
+
+<!-- Image Tag -->
+<p>Here is an image using the <code>&lt;img&gt;</code> tag:</p>
+<img src="https://via.placeholder.com/150" alt="Sample Image" />
+
+<!-- Bold and Italic Tags -->
+<p>This is <b>bold text</b> and this is <i>italic text</i>.</p>
+
+<!-- Line Break -->
+<p>This is a line.<br>This is another line after a break.</p>
+
+<!-- Horizontal Rule -->
+<hr>
+
+<!-- Unordered List -->
+<p>HTML Tags include:</p>
+<ul>
+  <li>&lt;a&gt; for links</li>
+  <li>&lt;img&gt; for images</li>
+  <li>&lt;b&gt; and &lt;i&gt; for text styling</li>
+</ul>
